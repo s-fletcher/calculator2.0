@@ -66,3 +66,8 @@
 {
   background: #ffad33;
 }
+.selected
+{
+  background = #ffffff;
+  box-shadow:inset 0px 0px 0px 1px black;
+}

@@ -1,171 +1,124 @@
-// var calcBody = document.getElementById('calc-body');
-// if(window.innerWidth < 1600)
-// {
-//   calcBody.style.width = "400px";
-//   calcBody.style.height = "560px";
-//   calcBody.style.marginLeft = ((window.innerWidth*.5)-(200))+"px";
-// }
-// else if(window.innerWidth > 2000)
-// {
-//   calcBody.style.width = "500px";
-//   calcBody.style.height = "700px";
-//   calcBody.style.marginLeft = ((window.innerWidth*.5)-(250))+"px";
-// }
-// else {
-//   calcBody.style.width = (window.innerWidth*.25)+"px";
-//   calcBody.style.height = (calcBody.clientWidth*1.4)+"px";
-//   calcBody.style.marginLeft = ((window.innerWidth*.5)-(calcBody.clientWidth))+"px";
-// }
-//
-// window.addEventListener('resize', function () {
-//   if(window.innerWidth < 1600)
-//   {
-//     calcBody.style.marginLeft = ((window.innerWidth*.5)-(200))+"px";
-//   }
-//   else if(window.innerWidth > 2000)
-//   {
-//     calcBody.style.marginLeft = ((window.innerWidth*.5)-(250))+"px";
-//   }
-//   else
-//   {
-//     calcBody.style.width = (window.innerWidth*.25)+"px";
-//     calcBody.style.height = (calcBody.clientWidth*1.4)+"px";
-//     calcBody.style.marginLeft = ((window.innerWidth*.5)-(calcBody.clientWidth))+"px";
-//   }
-// });
+var numHolder = 0;
+var finished = false;
+var addOp = 0;
 
-// NOTE: COMPUTING BEGINS
+function numberWithCommas(x) {
+    var parts = x.toString().split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return parts.join(".");
+}
 
-function zero()
+
+function numberWithoutCommas(x)
+{
+  return x.split(",").join("");
+}
+
+function number(num)
 {
   var answerRef = document.getElementById('calc-answer');
-  if(answerRef.textContent == 0)
+  if(finished)
   {
     answerRef.textContent = 0;
+    finished = false;
   }
-  else {
-    answerRef.textContent += 0;
-  }
-}
-function one()
-{
-  var answerRef = document.getElementById('calc-answer');
-  if(answerRef.textContent == 0)
+  if(addOp == 1)
   {
-    answerRef.textContent = 1;
+    numHolder = parseFloat(numberWithoutCommas(answerRef.textContent));
+    document.getElementById('add').className = "color3";
+    answerRef.textContent = 0;
+    addOp = 2;
   }
-  else {
-    answerRef.textContent += 1;
-  }
-}
-function two()
-{
-  var answerRef = document.getElementById('calc-answer');
-  if(answerRef.textContent == 0)
+  if((answerRef.textContent % 1 == 0 && answerRef.textContent.length < 12) || (answerRef.textContent % 1 != 0 && answerRef.textContent.length < 13))
   {
-    answerRef.textContent = 2;
-  }
-  else {
-    answerRef.textContent += 2;
-  }
-}
-function three()
-{
-  var answerRef = document.getElementById('calc-answer');
-  if(answerRef.textContent == 0)
-  {
-    answerRef.textContent = 3;
-  }
-  else {
-    answerRef.textContent += 3;
+    if(answerRef.textContent == "0")
+    {
+      answerRef.textContent = num;
+    }
+    else {
+      answerRef.textContent = numberWithoutCommas(answerRef.textContent) + num;
+    }
+    answerRef.textContent = numberWithCommas(answerRef.textContent);
   }
 }
-function four()
-{
-  var answerRef = document.getElementById('calc-answer');
-  if(answerRef.textContent == 0)
-  {
-    answerRef.textContent = 4;
-  }
-  else {
-    answerRef.textContent += 4;
-  }
-}
-function five()
-{
-  var answerRef = document.getElementById('calc-answer');
-  if(answerRef.textContent == 0)
-  {
-    answerRef.textContent = 5;
-  }
-  else {
-    answerRef.textContent += 5;
-  }
-}
-function six()
-{
-  var answerRef = document.getElementById('calc-answer');
-  if(answerRef.textContent == 0)
-  {
-    answerRef.textContent = 6;
-  }
-  else {
-    answerRef.textContent += 6;
-  }
-}
-function seven()
-{
-  var answerRef = document.getElementById('calc-answer');
-  if(answerRef.textContent == 0)
-  {
-    answerRef.textContent = 7;
-  }
-  else {
-    answerRef.textContent += 7;
-  }
-}
-function eight()
-{
-  var answerRef = document.getElementById('calc-answer');
-  if(answerRef.textContent == 0)
-  {
-    answerRef.textContent = 8;
-  }
-  else {
-    answerRef.textContent += 8;
-  }
-}
-function nine()
-{
-  var answerRef = document.getElementById('calc-answer');
-  if(answerRef.textContent == 0)
-  {
-    answerRef.textContent = 9;
-  }
-  else {
-    answerRef.textContent += 9;
-  }
-}
+
 function decimal()
 {
   var answerRef = document.getElementById('calc-answer');
-  if(answerRef.textContent == 0)
+  if(finished)
   {
-    answerRef.textContent = ".";
+    answerRef.textContent = 0;
+    finished = false;
   }
-  else {
-    answerRef.textContent += ".";
+  if(!answerRef.textContent.includes("."))
+  {
+    if(answerRef.textContent == "0")
+    {
+      answerRef.textContent = "0.";
+    }
+    else {
+      answerRef.textContent += ".";
+    }
   }
 }
+
 function reset()
 {
   var answerRef = document.getElementById('calc-answer');
   answerRef.textContent = 0;
+  addOp = false;
+  finished = false;
+  document.getElementById('add').className = "color3";
+}
+
+function negative()
+{
+  var answerRef = document.getElementById('calc-answer');
+  answerRef.textContent = numberWithoutCommas(answerRef.textContent) * -1;
+  answerRef.textContent = numberWithCommas(answerRef.textContent);
+}
+
+function percent()
+{
+  var answerRef = document.getElementById('calc-answer');
+  var temp = numberWithoutCommas(answerRef.textContent);
+  answerRef.textContent = numberWithoutCommas(answerRef.textContent) / 100;
+  if(answerRef.textContent.length > 12)
+  {
+    answerRef.textContent = temp;
+  }
+  answerRef.textContent = numberWithCommas(answerRef.textContent);
+}
+
+function addAction()
+{
+  var answerRef = document.getElementById('calc-answer');
+  numHolder += parseFloat(numberWithoutCommas(answerRef.textContent));
+  addOp = 1;
+  document.getElementById('add').className = "selected";
+}
+
+function equals()
+{
+  var answerRef = document.getElementById('calc-answer');
+  if(addOp == 1)
+  {
+    answerRef.textContent = numberWithoutCommas(answerRef.textContent) * 2;
+    answerRef.textContent = numberWithCommas(answerRef.textContent);
+    addOp = 0;
+    document.getElementById('add').className = "color3";
+  }
+  if(addOp == 2)
+  {
+    answerRef.textContent = parseFloat(numHolder) + parseFloat(numberWithoutCommas(answerRef.textContent));
+    answerRef.textContent = numberWithCommas(answerRef.textContent);
+    addOp = 0;
+    document.getElementById('add').className = "color3";
+  }
+  finished = true;
+  numHolder = 0;
 }
 
 /*
-- Fix decimal
 - make operators work
-- make +/- work
-- add commas to number
 */
