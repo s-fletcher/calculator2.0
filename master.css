@@ -27,14 +27,14 @@
   border-bottom: 1px solid black;
 
 }
-#all-buttons
+#calc-all-buttons
 {
   width: 100%;
   height: 450px;
   margin-left: 5px;
   margin-top: -10px;
 }
-#all-buttons div
+#calc-all-buttons div
 {
   font-family: "Montserrat", sans-serif;
   font-size: 35px;
@@ -49,24 +49,28 @@
   cursor: pointer;
   user-select: none;
 }
-#all-buttons p
+#calc-all-buttons div:active
+{
+  opacity: .75;
+}
+#calc-all-buttons p
 {
   margin-top: 14px;
   user-select: none;
 }
-.color1
+.calc-color1
 {
   background: #8b8b8b;
 }
-.color2
+.calc-color2
 {
   background: #b9b9b9;
 }
-.color3
+.calc-color3
 {
   background: #ffad33;
 }
-.selected
+.calc-selected
 {
   background = #ffffff;
   box-shadow:inset 0px 0px 0px 1px black;

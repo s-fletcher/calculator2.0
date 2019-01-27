@@ -1,7 +1,3 @@
-var numHolder = 0;
-var finished = false;
-var addOp = 0;
-
 function numberWithCommas(x) {
     var parts = x.toString().split(".");
     parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -17,18 +13,6 @@ function numberWithoutCommas(x)
 function number(num)
 {
   var answerRef = document.getElementById('calc-answer');
-  if(finished)
-  {
-    answerRef.textContent = 0;
-    finished = false;
-  }
-  if(addOp == 1)
-  {
-    numHolder = parseFloat(numberWithoutCommas(answerRef.textContent));
-    document.getElementById('add').className = "color3";
-    answerRef.textContent = 0;
-    addOp = 2;
-  }
   if((answerRef.textContent % 1 == 0 && answerRef.textContent.length < 12) || (answerRef.textContent % 1 != 0 && answerRef.textContent.length < 13))
   {
     if(answerRef.textContent == "0")
@@ -45,11 +29,6 @@ function number(num)
 function decimal()
 {
   var answerRef = document.getElementById('calc-answer');
-  if(finished)
-  {
-    answerRef.textContent = 0;
-    finished = false;
-  }
   if(!answerRef.textContent.includes("."))
   {
     if(answerRef.textContent == "0")
@@ -66,9 +45,6 @@ function reset()
 {
   var answerRef = document.getElementById('calc-answer');
   answerRef.textContent = 0;
-  addOp = false;
-  finished = false;
-  document.getElementById('add').className = "color3";
 }
 
 function negative()
@@ -93,30 +69,11 @@ function percent()
 function addAction()
 {
   var answerRef = document.getElementById('calc-answer');
-  numHolder += parseFloat(numberWithoutCommas(answerRef.textContent));
-  addOp = 1;
-  document.getElementById('add').className = "selected";
 }
 
 function equals()
 {
   var answerRef = document.getElementById('calc-answer');
-  if(addOp == 1)
-  {
-    answerRef.textContent = numberWithoutCommas(answerRef.textContent) * 2;
-    answerRef.textContent = numberWithCommas(answerRef.textContent);
-    addOp = 0;
-    document.getElementById('add').className = "color3";
-  }
-  if(addOp == 2)
-  {
-    answerRef.textContent = parseFloat(numHolder) + parseFloat(numberWithoutCommas(answerRef.textContent));
-    answerRef.textContent = numberWithCommas(answerRef.textContent);
-    addOp = 0;
-    document.getElementById('add').className = "color3";
-  }
-  finished = true;
-  numHolder = 0;
 }
 
 /*
