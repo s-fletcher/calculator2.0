@@ -22,7 +22,7 @@
           <div onclick="percent()" class="calc-color2" style="float:left;">
             <p>%</p>
           </div>
-          <div class="calc-color3" style="float:left;">
+          <div onclick="operatorAction('/')" id="calc-divide" class="calc-color3" style="float:left;">
             <p>÷</p>
           </div>
           <div onclick="number(7)" class="calc-color1" style="float:left;">
@@ -34,8 +34,8 @@
           <div onclick="number(9)" class="calc-color1" style="float:left;">
             <p>9</p>
           </div>
-          <div class="calc-color3" style="float:left;">
-            <p>X</p>
+          <div  onclick="operatorAction('*')" id="calc-times" class="calc-color3" style="float:left;">
+            <p>&times;</p>
           </div>
           <div onclick="number(4)" class="calc-color1" style="float:left;">
             <p>4</p>
@@ -46,7 +46,7 @@
           <div onclick="number(6)" class="calc-color1" style="float:left;">
             <p>6</p>
           </div>
-          <div class="calc-color3" style="float:left;">
+          <div onclick="operatorAction('-')" id="calc-sub" class="calc-color3" style="float:left;">
             <p>-</p>
           </div>
           <div onclick="number(1)" class="calc-color1" style="float:left;">
@@ -58,16 +58,16 @@
           <div onclick="number(3)" class="calc-color1" style="float:left;">
             <p>3</p>
           </div>
-          <div onclick="addAction()" id="calc-add" class="calc-color3" style="float:left;">
+          <div onclick="operatorAction('+')" id="calc-add" class="calc-color3" style="float:left;">
             <p>+</p>
           </div>
           <div onclick="number(0)" class="calc-color1" style="float:left;width:166px;">
             <p>0</p>
           </div>
-          <div onclick="decimal()" class="calc-color1" style="float:left;">
+          <div onclick="number('.')" class="calc-color1" style="float:left;">
             <p>.</p>
           </div>
-          <div onclick="equals()" class="calc-color3" style="float:left;">
+          <div onclick="operatorAction('=')" class="calc-color3" style="float:left;">
             <p>=</p>
           </div>
         </div>
