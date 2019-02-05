@@ -2,6 +2,8 @@ var operations = {
   operator: '',
   number: null,
   operatorForEqual: '',
+  lastUsedOperator: '',
+  lastUsedNumber: null,
   numberPressed: false,
   changed(from)
   {
@@ -57,6 +59,22 @@ var operations = {
   {
     this.operatorForEqual = operator;
   },
+  set lastUsedOp(val)
+  {
+    this.lastUsedOperator = val;
+  },
+  get lastUsedOp()
+  {
+    return this.lastUsedOperator;
+  },
+  set lastUsedNum(val)
+  {
+    this.lastUsedNumber = val;
+  },
+  get lastUsedNum()
+  {
+    return this.lastUsedNumber;
+  },
   get numPressed()
   {
     return this.numberPressed;
@@ -72,6 +90,8 @@ var operations = {
     this.changed(old);
     if(operator != '')
       this.operatorForEqual = operator;
+    if(operator != '=' && operator != '')
+      this.lastUsedOperator = operator;
   },
   get num()
   {
@@ -149,6 +169,7 @@ function reset()
   operations.opForEqual = '';
   operations.num = null;
   operations.numPressed = false;
+  operations.lastUsedNum = null;
 }
 
 function negative()
@@ -182,27 +203,32 @@ function operatorAction(x)
   // If user switches operators mid calculation
   if(operations.opForEqual == '+' && x != '=')
   {
+    operations.lastUsedNum = numberWithoutCommas(answerRef.textContent);
     operations.num = parseFloat(operations.num) + parseFloat(numberWithoutCommas(answerRef.textContent));
     answerRef.textContent = numberWithCommas(operations.num);
   }
   else if(operations.opForEqual == '-' && x != '=')
   {
+    operations.lastUsedNum = numberWithoutCommas(answerRef.textContent);
     operations.num = parseFloat(operations.num) - parseFloat(numberWithoutCommas(answerRef.textContent));
     answerRef.textContent = numberWithCommas(operations.num);
   }
   else if(operations.opForEqual == '*' && x != '=')
   {
+    operations.lastUsedNum = numberWithoutCommas(answerRef.textContent);
     operations.num = parseFloat(operations.num) * parseFloat(numberWithoutCommas(answerRef.textContent));
     answerRef.textContent = numberWithCommas(operations.num);
   }
   else if(operations.opForEqual == '/' && x != '=')
   {
+    operations.lastUsedNum = numberWithoutCommas(answerRef.textContent);
     operations.num = parseFloat(operations.num) / parseFloat(numberWithoutCommas(answerRef.textContent));
     answerRef.textContent = numberWithCommas(operations.num);
   }
   // If user clicks an operator
   if(x == '+' || x == '-' || x == '*' || x == '/')
   {
+    operations.lastUsedNum = numberWithoutCommas(answerRef.textContent);
     operations.num = numberWithoutCommas(answerRef.textContent);
     operations.op = x;
   }
@@ -212,26 +238,48 @@ function operatorAction(x)
     // Checks if user previously clicked the +
     if(operations.opForEqual == '+')
     {
+      operations.lastUsedNum = numberWithoutCommas(answerRef.textContent);
       operations.num = parseFloat(operations.num) + parseFloat(numberWithoutCommas(answerRef.textContent));
       answerRef.textContent = numberWithCommas(operations.num);
     }
     // Checks if user previously clicked the -
     else if(operations.opForEqual == '-')
     {
+      operations.lastUsedNum = numberWithoutCommas(answerRef.textContent);
       operations.num = parseFloat(operations.num) - parseFloat(numberWithoutCommas(answerRef.textContent));
       answerRef.textContent = numberWithCommas(operations.num);
     }
     // Checks if user previously clicked the *
     else if(operations.opForEqual == '*')
     {
+      operations.lastUsedNum = numberWithoutCommas(answerRef.textContent);
       operations.num = parseFloat(operations.num) * parseFloat(numberWithoutCommas(answerRef.textContent));
       answerRef.textContent = numberWithCommas(operations.num);
     }
     // Checks if user previously clicked the *
     else if(operations.opForEqual == '/')
     {
+      operations.lastUsedNum = numberWithoutCommas(answerRef.textContent);
       operations.num = parseFloat(operations.num) / parseFloat(numberWithoutCommas(answerRef.textContent));
       answerRef.textContent = numberWithCommas(operations.num);
+    }
+    else if(operations.lastUsedNum != null) {
+      if(operations.lastUsedOp == "+")
+      {
+        answerRef.textContent = numberWithCommas(parseFloat(numberWithoutCommas(answerRef.textContent)) + parseFloat(operations.lastUsedNum))
+      }
+      else if(operations.lastUsedOp == "-")
+      {
+        answerRef.textContent = numberWithCommas(parseFloat(numberWithoutCommas(answerRef.textContent)) - parseFloat(operations.lastUsedNum))
+      }
+      else if(operations.lastUsedOp == "*")
+      {
+        answerRef.textContent = numberWithCommas(parseFloat(numberWithoutCommas(answerRef.textContent)) * parseFloat(operations.lastUsedNum))
+      }
+      else if(operations.lastUsedOp == "/")
+      {
+        answerRef.textContent = numberWithCommas(parseFloat(numberWithoutCommas(answerRef.textContent)) / parseFloat(operations.lastUsedNum))
+      }
     }
     operations.op = '=';
     operations.num = null;
