@@ -1,6 +1,7 @@
 # Calculator 2.0
 
 A calculator created with HTML, CSS and JavaScript.
+
 View at https://samfletcher.me
 
 Roadmap:
