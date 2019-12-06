@@ -2,7 +2,7 @@
 
 A calculator created with HTML, CSS and JavaScript.
 
-View at https://samfletcher.me
+View at https://calculator.samfletcher.me
 
 Roadmap:
 - ~~Addition operator~~
